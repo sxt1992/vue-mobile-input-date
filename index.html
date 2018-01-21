@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script type="text/javascript">
+      !function(w){
+  // rem 布局,就是设置html的font-size
+  var doc = w.document,
+  resizeEvt = 'orientationchange' in w ? 'orientationchange' : 'resize',
+  styFunc = function (event) {
+    w.rem = w.innerWidth / 10;
+    doc.getElementsByTagName('html')[0].style.fontSize = rem + 'px';
+    var style;
+    if (style = doc.getElementById('htmlfontsize')) {
+      style.parentNode.removeChild(style);
+    }
+    style = doc.createElement('style');
+    style.id = 'htmlfontsize';
+    style.appendChild(doc.createTextNode('html{font-size:' + rem + 'px !important;}'));
+    doc.head.appendChild(style);
+  };
+  w.addEventListener(resizeEvt, styFunc, false);
+  doc.addEventListener('DOMContentLoaded', styFunc, false);
+  styFunc();
+}(window);
+    </script>
+    <title>mobile-input-date</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
