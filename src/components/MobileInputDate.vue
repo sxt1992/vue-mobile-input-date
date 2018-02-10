@@ -1,5 +1,5 @@
 <template>
-  <div v-show="showInput" class="mobile-input-date">
+  <div v-show="visible" class="mobile-input-date">
     <div class="mobile-input-date-opr">
       <div class="mobile-input-date-opr-btn">
         <span @click="cancel">取消</span>
@@ -84,7 +84,6 @@ export default {
   name: 'mobileInputDate',
   data() {
     return {
-      showInput: false, // 当前窗口是否显示
       selectShow: '', // 选择了多少天
       activeDate: {
         y: '',
@@ -129,29 +128,29 @@ export default {
           d: ''
         };
       }
-    }
+    },
+    // 当前窗口是否显示
+    visible: null
   },
   watch: {
     value() {
       this.initValue();
     },
-    ['value.visible']() {
-      this.initValue();
-    },
-    ['titleShow.year']() {
+    'titleShow.year'() {
       this.setPanel(`${this.titleShow.year}-${this.titleShow.month}-15`);
     },
-    ['titleShow.month']() {
+    'titleShow.month'() {
       this.setPanel(`${this.titleShow.year}-${this.titleShow.month}-15`);
     },
-    ['dateShow.d0']() {
+    'dateShow.d0'() {
       this.howLongIsSelect();
     },
-    ['dateShow.d1']() {
+    'dateShow.d1'() {
       this.howLongIsSelect();
     }
   },
   created() {
+    window.t = this;
     this.initValue();
     this.setPanel(this.isRangeDate ? this.dateShow.d0 : this.dateShow.d2);
     this.dateShowIndex = this.isRangeDate ? 0 : 2;
@@ -176,12 +175,6 @@ export default {
   },
   methods: {
     initValue() {
-      if (this.value.visible) {
-        this.showInput = true;
-      } else {
-        this.showInput = false;
-      }
-
       if (this.isRangeDate) {
         if (this.value.startDate) {
           const t = dateFormat.toStr(this.value.startDate);
@@ -339,7 +332,7 @@ export default {
     // 完成
     confirm() {
       const v = this.value;
-      v.visible = false;
+      this.visible = false;
 
       if (this.isRangeDate) {
         v.startDate = this.dateShow.d0;

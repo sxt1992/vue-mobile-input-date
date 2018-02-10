@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <MobileInputDate type="daterange6" v-model="d" />
-    <button @click="d.visible=!d.visible">点击</button>
+    <MobileInputDate type="daterange" v-model="d" :visible.sync="visible" />
+    <button @click="visible=!visible">点击</button>
   </div>
 </template>
 
@@ -15,8 +15,8 @@ export default {
   },
   data() {
     return {
+      visible: false,
       d: {
-        visible: false,
         startDate: '2013-06-23',
         endDate: '2016-06-23',
         oneDate: '2018-1-9'
@@ -24,7 +24,6 @@ export default {
     };
   },
   created() {
-    window.t = this;
   }
 };
 </script>
