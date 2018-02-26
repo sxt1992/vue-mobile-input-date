@@ -2,15 +2,14 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import App from './App';
-import tcDatePicker from './components/tcDatePicker.js';
+import MobileInputDate from './index.js';
 
 Vue.config.productionTip = false;
-
-Vue.use(tcDatePicker);
+Vue.use(MobileInputDate);
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    template: '<App/>',
+    components: { App }
 });
