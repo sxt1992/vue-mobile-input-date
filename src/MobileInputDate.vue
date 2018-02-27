@@ -255,8 +255,6 @@ export default {
                     this.value.limit.end && (this.limit.end = this.value.limit.end);
                 }
             }
-            this.setPanel(this.isRange ? this.dateShow.d0 : this.dateShow.d2);
-            this.dateShowIndex = this.isRange ? 0 : 2;
 
             if (this.isRange) {
                 if (this.startDate) {
@@ -271,7 +269,6 @@ export default {
                 if (this.endDate) {
                     this.dateShow.d1 = dateFormat.toStr(this.endDate).str;
                 }
-                this.howLongIsSelect();
             } else if (this.oneDate) {
                 const t = dateFormat.toStr(this.oneDate);
                 this.dateShow.d2 = t.str;
@@ -281,6 +278,9 @@ export default {
                     d: t.d
                 };
             }
+            this.setPanel(this.isRange ? this.dateShow.d0 : this.dateShow.d2);
+            this.dateShowIndex = this.isRange ? 0 : 2;
+            this.howLongIsSelect();
         },
         howLongIsSelect() {
             if (!this.isRange) {
@@ -297,6 +297,10 @@ export default {
         },
         setPanel(d) {
             const s = dateFormat.toStr(d);
+            // 显示标题
+            this.titleShow.year = s.y;
+            this.titleShow.month = s.m;
+
             // d月份1号
             const t = new Date(s.y, s.m - 1);
             let i = t.getDay();
@@ -336,10 +340,6 @@ export default {
                 });
             }
             this.dateMain.nextMonth = monthDayArr;
-
-            // 显示标题
-            this.titleShow.year = +s.y;
-            this.titleShow.month = +s.m;
         },
         // 日期.天是否选中
         dayIsSelect(day) {
