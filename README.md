@@ -17,6 +17,11 @@ npm run build
 npm run prod
 ```
 
+## example images
+
+![input-date mode](./exampleImages/input-date.jpg)
+![input-date-range mode](./exampleImages/input-date-range.jpg)
+
 # Usage
 
 ### Include
