@@ -1,6 +1,6 @@
 {
   "name": "vue-mobile-input-date",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Date Input For Mobile By Vue",
   "author": "taoxj1992@163.com",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js",
-    "prod": "node build/build-dist.js"
+    "prod": "node build/build-prod.js"
   },
   "main": "lib/MobileInputDate.min.js",
   "repository": {

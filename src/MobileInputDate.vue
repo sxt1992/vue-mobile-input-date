@@ -55,6 +55,11 @@
 </template>
 
 <script>
+// 页面位置
+let pageLoc = null;
+// 固定页面的根样式
+const fixHtmlCN = 'fix-html-mobile-input-date';
+
 // 生成 style 样式
 // eslint-disable-next-line
 genStyle();
@@ -153,6 +158,9 @@ export default {
         }
     },
     watch: {
+        visible(val) {
+            this.fixPage(val);
+        },
         value() {
             this.initValue();
         },
@@ -455,14 +463,47 @@ export default {
                     });
                 }
             }
+        },
+        fixPage(type) {
+            const html = document.documentElement;
+            const cn = html.className;
+            if (type) {
+                pageLoc = {
+                    left: html.scrollLeft || document.body.scrollLeft,
+                    top: html.scrollTop || document.body.scrollTop
+                };
+                if (cn.indexOf(fixHtmlCN) < 0) {
+                    html.className += ` ${fixHtmlCN}`;
+                }
+            } else {
+                if (cn.indexOf(fixHtmlCN) > -1) {
+                    html.className = cn.replace(new RegExp(fixHtmlCN, 'g'), '').replace(/\s{2,}/, ' ').trim();
+                }
+                pageLoc && window.scrollTo(pageLoc.left, pageLoc.top);
+                pageLoc = null;
+            }
         }
+    },
+    beforeRouteLeave(to, from, next) {
+        // 导航离开该组件的对应路由时调用
+        this.fixPage(false);
+        next();
+    },
+    beforeDestroy() {
+        this.fixPage(false);
     }
 };
 
 function genStyle() {
     const rem = document.documentElement.offsetWidth / 10;
     const processPix = num => `${Math.round(num * rem)}px`;
-    const styleStr = `.mobile-input-date {
+    const styleStr = `.${fixHtmlCN}, .${fixHtmlCN} body {
+    position: fixed !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+.mobile-input-date {
   position: fixed;
   top: 0;
   left: 0;
@@ -470,6 +511,7 @@ function genStyle() {
   height: 100%;
   font-size: ${processPix(0.42)};
   background: #fff;
+  z-index: 99999;
 }
 .mobile-input-date * {
   -webkit-box-sizing: border-box;

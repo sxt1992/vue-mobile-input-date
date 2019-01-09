@@ -2,10 +2,10 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import App from './App';
-import MobileInputDate from './index.js';
+// import MobileInputDate from './index.js';
 
 Vue.config.productionTip = false;
-Vue.use(MobileInputDate);
+// Vue.use(MobileInputDate);
 
 /* eslint-disable no-new */
 new Vue({

@@ -34,8 +34,11 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 const API = {
-    version: process.env.VERSION || '0.0.0',
+    version: process.env.VERSION || '1.0.0',
     install
 };
 
-export default API;
+export default {
+    ...API,
+    ...MobileInputDate
+};
